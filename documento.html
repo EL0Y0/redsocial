@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        /* Estilo para la cabecera */
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Contenedor para el layout */
+        .container {
+            display: flex;
+            margin-top: 60px; /* Para no tapar la cabecera */
+            width: 100%;
+        }
+
+        /* Estilo para el menú lateral */
+        nav {
+            width: 250px;
+            background-color: #f4f4f4;
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            top: 60px; /* Para alinearse debajo de la cabecera */
+            left: 0;
+            box-shadow: 2px 0px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Estilo para los links del menú */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        nav ul li {
+            margin-bottom: 10px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #333;
+            padding: 10px;
+            display: block;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: #ddd;
+        }
+
+        /* Estilo para la sección principal */
+        main {
+            flex-grow: 1;
+            margin-left: 250px;
+            padding: 20px;
+            background-color: #fafafa;
+        }
+
+        /* Estilo para los artículos */
+        article {
+            background-color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+
+        article h2 {
+            margin-top: 0;
+        }
+
+        .tags {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #777;
+        }
+
+        .tags span {
+            background-color: #e0e0e0;
+            padding: 5px;
+            border-radius: 3px;
+            margin-right: 5px;
+        }
+
+        .likes {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        /* Botón de like */
+        .like-btn {
+            color: #007BFF;
+            cursor: pointer;
+            font-size: 0.9em;
+            border: none;
+            background: none;
+            padding: 0;
+        }
+
+        .like-btn:hover {
+            text-decoration: underline;
+        }
+
+        /* Botón flotante */
+        .floating-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #007BFF;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            border: none;
+        }
+
+        /* Modal */
+        .modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5); /* Fondo transparente */
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Contenido del modal */
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            width: 500px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Cerrar el modal */
+        .close-btn {
+            float: right;
+            cursor: pointer;
+            font-size: 20px;
+            color: #333;
+        }
+
+        /* Estilo para el formulario */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        form label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input, form textarea {
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        form button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabecera -->
+    <header>
+        <h1>Mi Blog</h1>
+    </header>
+
+    <div class="container">
+        <!-- Menú lateral -->
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Sobre mí</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </nav>
+
+        <!-- Parte central con artículos -->
+        <main>
+            <!-- Primer artículo -->
+            <article>
+                <h2>Título del primer post</h2>
+                <p>Este es el contenido del primer post de mi blog. Aquí puedes escribir sobre cualquier tema que te interese.</p>
+                <div class="tags">
+                    <strong>Tags:</strong>
+                    <span>#Tecnología</span>
+                    <span>#Programación</span>
+                    <span>#HTML</span>
+                </div>
+                <div class="likes">
+                    Likes: <span id="likes1">10</span> <button class="like-btn" onclick="likePost(1)">Me gusta</button>
+                </div>
+            </article>
+
+            <!-- Segundo artículo -->
+            <article>
+                <h2>Título del segundo post</h2>
+                <p>Este es el contenido del segundo post. Puedes escribir sobre temas diferentes y ofrecer tu opinión o experiencias.</p>
+                <div class="tags">
+                    <strong>Tags:</strong>
+                    <span>#Viajes</span>
+                    <span>#Aventura</span>
+                    <span>#Fotografía</span>
+                </div>
+                <div class="likes">
+                    Likes: <span id="likes2">5</span> <button class="like-btn" onclick="likePost(2)">Me gusta</button>
+                </div>
+            </article>
+
+            <!-- Tercer artículo -->
+            <article>
+                <h2>Título del tercer post</h2>
+                <p>Contenido del tercer post de mi blog. Aquí puedes compartir tus ideas, experiencias o cualquier cosa que quieras.</p>
+                <div class="tags">
+                    <strong>Tags:</strong>
+                    <span>#Salud</span>
+                    <span>#Bienestar</span>
+                    <span>#EstiloDeVida</span>
+                </div>
+                <div class="likes">
+                    Likes: <span id="likes3">3</span> <button class="like-btn" onclick="likePost(3)">Me gusta</button>
+                </div>
+            </article>
+        </main>
+    </div>
+
+    <!-- Botón flotante para crear un post -->
+    <button class="floating-btn" onclick="openModal()">+</button>
+
+    <!-- Modal con el formulario para crear un post -->
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2>Crear nuevo post</h2>
+            <form>
+                <label for="title">Título:</label>
+                <input type="text" id="title" name="title" required>
+
+                <label for="content">Contenido:</label>
+                <textarea id="content" name="content" rows="4" required></textarea>
+
+                <label for="tags">Tags (separados por comas):</label>
+                <input type="text" id="tags" name="tags" required>
+
+                <button type="button">Publicar</button> <!-- Botón que no hace nada -->
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Función para abrir el modal
+        function openModal() {
+            const modal = document.getElementById('postModal');
+            modal.style.display = 'flex';  // Cambiar el display a 'flex' para que se vea
+        }
+
+        // Función para cerrar el modal
+        function closeModal() {
+            const modal = document.getElementById('postModal');
+            modal.style.display = 'none';  // Ocultar el modal
+        }
+
+        // Función para aumentar el número de likes
+        function likePost(postId) {
+            const likesElement = document.getElementById('likes' + postId);
+            let currentLikes = parseInt(likesElement.textContent);
+            likesElement.textContent = currentLikes + 1;
+        }
+    </script>
+
+</body>
+</html>
